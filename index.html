@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>360&deg; Image</title>
+    <meta name="description" content="360&deg; Image - A-Frame">
+    <script src="aframe-master.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-template-component@3.x.x/dist/aframe-template-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-layout-component@4.x.x/dist/aframe-layout-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@5.x.x/dist/aframe-event-set-component.min.js"></script>
+    
+    <script id="plane" type="text/html">
+      <a-entity class="link"
+      geometry="primitive: plane; height: 1; width: 1"
+      material="shader: flat; src: ${thumb}"
+      sound="on: click; src: #click-sound"
+      event-set__mouseenter="scale: 1.2 1.2 1"
+      event-set__mouseleave="scale: 1 1 1"
+      event-set__click="_target: #image-360; _delay: 300; material.src: ${src}"
+      proxy-event="event: click; to: #image-360; as: fade"></a-entity>
+    </script>
+  </head>
+  <body>
+    <a-scene>
+      <!-- ... -->
+    </a-scene>
+  </body>
+</html>
+
+  </head>
+  <body>
+   
+    <a-scene>
+      <a-assets>
+        <audio id="click-sound" src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
+    
+        <!-- Images. -->
+        <img id="city" src="Avatel_360 6K_At Booms_001_2k.jpg">
+        <img id="city-thumb" src="Page Image_Machine_001.jpg">
+        <img id="cubes" src="Avatel_360 6K_In Cab_001_2k.jpg">
+        <img id="cubes-thumb" src="Page Image_In Cab_001.jpg">
+        <img id="sechelt" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg">
+        <img id="sechelt-thumb" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-sechelt.jpg">
+      </a-assets>
+
+      <a-sky id="image-360" src="Avatel_360 6K_In Cab_001_2k.jpg" rotation="0 -130 0"
+      animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
+      animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 300; startEvents: animationcomplete__fade"></a-sky>
+     
+      
+      <a-text font="kelsonsans" value="Avatel" width="10" position="-2.5 .5 -1.5"
+              rotation="0 45 0"></a-text>
+
+      <a-entity class="link"
+      geometry="primitive: plane; height: 1; width: 1"
+      material="shader: flat; src: #cubes-thumb"
+      sound="on: click; src: #click-sound"
+      proxy-event="event: click; to: #image-360; as: fade"></a-entity>
+
+      <a-entity
+      id="infoPanel"
+      position="0 0 0.5"
+      info-panel
+      visible="false"
+      scale="0.001 0.001 0.001"
+      geometry="primitive: plane; width: 1.5; height: 1.8"
+      material="color: #333333; shader: flat; transparent: false" class="raycastable">
+
+        <a-entity id="movieDescription"
+        position="-0.68 -0.2 0"
+        text="baseline: top; shader: msdf; anchor: left; font: https://cdn.aframe.io/examples/ui/Viga-Regular.json; color: white; value: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."></a-entity>
+        </a-entity>
+      </a-entity>
+
+     <!-- <a-entity template="src: #plane" data-thumb="#city-thumb"></a-entity>
+      <a-entity template="src: #plane" data-thumb="#cubes-thumb"></a-entity>
+      <a-entity template="src: #plane" data-thumb="#sechelt-thumb"></a-entity>-->
+
+      <!--data-thumb="#city-thumb
+        data-thumb="#cubes-thumb" 
+      data-thumb="#sechelt-thumb"-->
+      <!--<a-entity template="src: #plane" data-src="#sechelt" data-thumb=""></a-entity>-->
+
+      <a-entity id="links" layout="type: line; margin: 1.5" position="-2 -1 -4">
+        <a-entity template="src: #plane" data-src="#city" data-thumb="#city-thumb"></a-entity>
+        <a-entity template="src: #plane" data-src="#cubes" data-thumb="#cubes-thumb"></a-entity>
+        
+      </a-entity>
+
+     
+
+      <!-- animation__clickreset="property: scale; to: 0.5 0.5 0.5; dur: 1; startEvents: animationcomplete__click"-->
+      <a-camera>
+          <a-cursor
+              id="cursor"
+              animation__click="property: scale; from: 0.1 0.1 0.1; to: 1 1 1; easing: easeInCubic; dur: 150; startEvents: click"
+              
+              animation__fusing="property: scale; from: 1 1 1; to: 0.1 0.1 0.1; easing: easeInCubic; dur: 150; startEvents: fusing">
+          </a-cursor>
+      </a-camera>
+
+    </a-scene>
+    
+    
+  </body>
+</html>
+<style>.wrapper {
+  text-align: center;
+}
+
+.button {
+  position: absolute;
+  top: 50%;
+}</style>
